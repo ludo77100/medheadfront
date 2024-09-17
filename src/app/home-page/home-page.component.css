@@ -1,0 +1,12 @@
+.container {
+    max-width: 1200px;
+  }
+  
+  .btn-block {
+    display: block;
+    width: 100%;
+  }
+  
+  .card {
+    height: 100%;
+  }

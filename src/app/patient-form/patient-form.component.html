@@ -1,0 +1,62 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Add or Modify Patient</h2>
+    <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="idCardNumber" class="form-label">ID Card Number</label>
+          <input type="text" id="idCardNumber" class="form-control" formControlName="idCardNumber">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="firstName" class="form-label">First Name</label>
+          <input type="text" id="firstName" class="form-control" formControlName="firstName">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input type="text" id="lastName" class="form-control" formControlName="lastName">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="birthDate" class="form-label">Birthdate</label>
+          <input type="date" id="birthDate" class="form-control" formControlName="birthDate">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="nationality" class="form-label">Nationality</label>
+          <input type="text" id="nationality" class="form-control" formControlName="nationality">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="streetAddress" class="form-label">Street Address</label>
+          <input type="text" id="streetAddress" class="form-control" formControlName="streetAddress">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="complementaryAddress" class="form-label">Complementary Address</label>
+          <input type="text" id="complementaryAddress" class="form-control" formControlName="complementaryAddress">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="city" class="form-label">City</label>
+          <input type="text" id="city" class="form-control" formControlName="city">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="state" class="form-label">State</label>
+          <input type="text" id="state" class="form-control" formControlName="state">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="postalCode" class="form-label">Postal Code</label>
+          <input type="text" id="postalCode" class="form-control" formControlName="postalCode">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="country" class="form-label">Country</label>
+          <input type="text" id="country" class="form-control" formControlName="country">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>

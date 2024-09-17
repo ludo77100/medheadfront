@@ -1,0 +1,10 @@
+h1 {
+    font-size: 10rem;
+    font-weight: 700;
+    color: #ff6b6b;
+}
+
+.lead {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
