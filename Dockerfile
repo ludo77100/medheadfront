@@ -1,5 +1,5 @@
 # Étape 1 : Utiliser une image Node.js pour la compilation
-FROM node:16 AS build
+FROM node:18 AS build
 
 # Définir le répertoire de travail dans le conteneur
 WORKDIR /app
