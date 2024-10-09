@@ -1,0 +1,19 @@
+.new-emergency-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    margin: auto;
+  }
+  
+  .new-emergency-form label {
+    margin-top: 10px;
+  }
+  
+  .new-emergency-form button {
+    margin-top: 20px;
+  }
+  
+  h3 {
+    margin-top: 20px;
+    color: green;
+  }

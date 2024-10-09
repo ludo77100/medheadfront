@@ -20,8 +20,9 @@ export class TokenService {
   }
 
   public getToken(): string | null {
-    return sessionStorage.getItem(TOKEN_KEY);
-  }
+    const tokenData = JSON.parse(sessionStorage.getItem(USER_KEY) || '{}');
+    return tokenData.token || null;
+    }
 
   public saveUser(user: any): void {
     window.sessionStorage.removeItem(USER_KEY);
