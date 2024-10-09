@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HospitalService } from '../services/hospital.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-new-emergency',
@@ -10,23 +10,31 @@ import { HospitalService } from '../services/hospital.service';
   styleUrls: ['./new-emergency.component.css'],
   standalone: true,
   imports: [
-    ReactiveFormsModule,
-    CommonModule
-  ]
+    CommonModule,
+    ReactiveFormsModule
+    ]
 })
 export class NewEmergencyComponent implements OnInit {
-  form: FormGroup;
   specialityGroups: any[] = [];
   specialities: any[] = [];
   selectedHospitalName: string | null = null;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private hospitalService: HospitalService) {
+  form: FormGroup;
+
+  constructor(private fb: FormBuilder, private hospitalService: HospitalService, private http: HttpClient) {
     this.form = this.fb.group({
       userLat: [''],
       userLon: [''],
       specialityGroupId: [''],
       specialityId: ['']
     });
+  }
+
+  onSpecialityGroupChange(event: Event) {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    console.log(selectedValue);
+    const selectedGroup = this.specialityGroups.find(group => group.specialityGroupId == selectedValue);
+    this.specialities = selectedGroup ? selectedGroup.speciality : [];
   }
 
   ngOnInit(): void {
@@ -36,4 +44,16 @@ export class NewEmergencyComponent implements OnInit {
   }
 
 
+  onSubmit(): void {
+    const { userLat, userLon, specialityId } = this.form.value;
+    this.http.get(`http://localhost:8082/hospital/closest`, {
+      params: {
+        userLatStr: userLat,
+        userLonStr: userLon,
+        specialityId: specialityId
+      }
+    }).subscribe((response: any) => {
+      this.selectedHospitalName = response.hospitalName;
+    });
+  }
 }

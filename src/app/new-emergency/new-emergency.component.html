@@ -1,1 +1,27 @@
-<p>TEST</p>
+<div class="new-emergency-form">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <label for="userLat">Latitude:</label>
+      <input id="userLat" formControlName="userLat" type="text" />
+  
+      <label for="userLon">Longitude:</label>
+      <input id="userLon" formControlName="userLon" type="text" />
+  
+      <label for="specialityGroupId">Groupe de Spécialité:</label>
+
+      <select id="specialityGroupId" formControlName="specialityGroupId" (change)="onSpecialityGroupChange($event)">
+        <option *ngFor="let group of specialityGroups" [value]="group.specialityGroupId">{{ group.specialityGroupName }}</option>
+      </select>
+
+      <label for="specialityId">Spécialité:</label>
+      <select id="specialityId" formControlName="specialityId">
+        <option *ngFor="let speciality of specialities" [value]="speciality.specialityId">{{ speciality.specialityName }}</option>
+      </select>
+  
+      <button type="submit">Envoyer</button>
+    </form>
+  
+    <div *ngIf="selectedHospitalName">
+      <h3>Hôpital le plus proche :</h3>
+      <p>{{ selectedHospitalName }}</p>
+    </div>
+</div>
