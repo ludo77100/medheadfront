@@ -4,28 +4,4 @@
         <a routerLink="/new-emergency" class="btn btn-danger btn-lg btn-block" style="width: 100%;">New Emergency</a>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card mb-4">
-          <div class="card-header">
-            Your Recent Emergency
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let emergency of recentEmergencys">
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card mb-4">
-          <div class="card-header">
-            Your Emergency With Missing Patient Info
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let emergency of missingPatientInfoEmergencys">
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
-  </div>
