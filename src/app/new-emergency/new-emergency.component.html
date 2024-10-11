@@ -1,27 +1,55 @@
-<div class="new-emergency-form">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <label for="userLat">Latitude:</label>
-      <input id="userLat" formControlName="userLat" type="text" />
+  <div class="container mt-4">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm bg-light">
+      <div class="mb-3">
+        <label for="userLat" class="form-label">Latitude</label>
+        <input id="userLat" formControlName="userLat" type="text" class="form-control" placeholder="Entrez la latitude" />
+      </div>
   
-      <label for="userLon">Longitude:</label>
-      <input id="userLon" formControlName="userLon" type="text" />
+      <div class="mb-3">
+        <label for="userLon" class="form-label">Longitude</label>
+        <input id="userLon" formControlName="userLon" type="text" class="form-control" placeholder="Entrez la longitude" />
+      </div>
   
-      <label for="specialityGroupId">Groupe de Spécialité:</label>
-
-      <select id="specialityGroupId" formControlName="specialityGroupId" (change)="onSpecialityGroupChange($event)">
-        <option *ngFor="let group of specialityGroups" [value]="group.specialityGroupId">{{ group.specialityGroupName }}</option>
-      </select>
-
-      <label for="specialityId">Spécialité:</label>
-      <select id="specialityId" formControlName="specialityId">
-        <option *ngFor="let speciality of specialities" [value]="speciality.specialityId">{{ speciality.specialityName }}</option>
-      </select>
+      <div class="mb-3">
+        <label for="specialityGroupId" class="form-label">Groupe de Spécialité</label>
+        <select id="specialityGroupId" formControlName="specialityGroupId" (change)="onSpecialityGroupChange($event)" class="form-select">
+          <option value="" disabled selected>Sélectionnez un groupe de spécialité</option>
+          <option *ngFor="let group of specialityGroups" [value]="group.specialityGroupId">
+            {{ group.specialityGroupName }}
+          </option>
+        </select>
+      </div>
   
-      <button type="submit">Envoyer</button>
+      <div class="mb-3" *ngIf="specialities.length > 0">
+        <label for="specialityId" class="form-label">Spécialité</label>
+        <select id="specialityId" formControlName="specialityId" class="form-select">
+          <option value="" disabled selected>Sélectionnez une spécialité</option>
+          <option *ngFor="let speciality of specialities" [value]="speciality.specialityId">
+            {{ speciality.specialityName }}
+          </option>
+        </select>
+      </div>
+  
+      <button type="submit" class="btn btn-primary w-100">Envoyer</button>
     </form>
-  
-    <div *ngIf="selectedHospitalName">
-      <h3>Hôpital le plus proche :</h3>
-      <p>{{ selectedHospitalName }}</p>
+  </div>
+
+  <div *ngIf="closestHospitalListSize == 0">
+    <div class="alert alert-danger no-hospital-alert" role="alert">
+      Aucun hôpital trouvé !
     </div>
-</div>
+  </div>
+
+  <div class="card-list">
+    <div *ngFor="let hospital of closestHospitalList" class="card hospital-card">
+      <div class="card-header">
+        <h2> {{ hospital.hospital.hospitalName }} </h2>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"> {{ hospital.time }} minutes</h5>
+        <p class="card-text"> {{ hospital.distance }} km</p>
+        <p class="card-text">Code du lit: {{ hospital.bedCode }}</p>
+        <a href="#" class="btn btn-primary">Réserver lit</a>
+      </div>
+    </div>
+  </div>

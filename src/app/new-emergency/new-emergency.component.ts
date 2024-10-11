@@ -17,7 +17,8 @@ import { HttpClient } from '@angular/common/http';
 export class NewEmergencyComponent implements OnInit {
   specialityGroups: any[] = [];
   specialities: any[] = [];
-  selectedHospitalName: string | null = null;
+  closestHospitalListSize: number | null = null;
+  closestHospitalList: any[] = [];
 
   form: FormGroup;
 
@@ -32,7 +33,6 @@ export class NewEmergencyComponent implements OnInit {
 
   onSpecialityGroupChange(event: Event) {
     const selectedValue = (event.target as HTMLSelectElement).value;
-    console.log(selectedValue);
     const selectedGroup = this.specialityGroups.find(group => group.specialityGroupId == selectedValue);
     this.specialities = selectedGroup ? selectedGroup.speciality : [];
   }
@@ -45,15 +45,12 @@ export class NewEmergencyComponent implements OnInit {
 
 
   onSubmit(): void {
+    this.closestHospitalListSize = null ;
     const { userLat, userLon, specialityId } = this.form.value;
-    this.http.get(`http://localhost:8082/hospital/closest`, {
-      params: {
-        userLatStr: userLat,
-        userLonStr: userLon,
-        specialityId: specialityId
-      }
-    }).subscribe((response: any) => {
-      this.selectedHospitalName = response.hospitalName;
+    this.hospitalService.getClosestHospital(userLat, userLon, specialityId).subscribe((response: any) => {
+    this.closestHospitalList = response;
+    this.closestHospitalListSize = this.closestHospitalList.length;
+      
     });
   }
 }

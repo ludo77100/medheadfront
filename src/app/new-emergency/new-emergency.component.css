@@ -17,3 +17,27 @@ h3 {
   margin-top: 20px;
   color: green;
 }
+
+.hospital-card{
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+}
+
+.card-header{
+  width: 80%;
+}
+
+.full-page{
+  display: flex;
+  flex-direction: row;
+}
+
+.card-list{
+  text-align: center;
+}
+
+.no-hospital-alert{
+  width: 98%;
+  margin: 10px;
+}

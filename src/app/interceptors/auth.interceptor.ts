@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
 import { TokenService } from '../services/token.service';
 
 @Injectable()
@@ -12,11 +12,17 @@ export class AuthInterceptor implements HttpInterceptor {
     let authReq = req;
     const token = this.token.getToken();
     if (token != null) {
-      console.log('Passage dans interceptor avec token:' + token);
       authReq = req.clone({
         headers: req.headers.set('Authorization', 'Bearer ' + token)
       });
     }
-    return next.handle(authReq);
+    return next.handle(authReq).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 403) {
+          this.token.signOut();
+        }
+        return throwError(() => new Error(error.message));
+      })
+    );
   }
 }
