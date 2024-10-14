@@ -12,8 +12,27 @@ export class HospitalService {
   constructor(private httpClient: HttpClient) {}
 
   getAllSpecialityGroupWithChildren(): Observable<any> {
-    console.log(this.httpClient.get(`${this.baseUrl}/specialityGroup/all`));
     return this.httpClient.get(`${this.baseUrl}/specialityGroup/all`);
+  }
+
+  getClosestHospital(userLat: string, userLon: string, specialityId: number): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/hospital/closest`, {
+      params: {
+        userLatStr: userLat,
+        userLonStr: userLon,
+        specialityId: specialityId
+      }
+    });
+  }
+
+  changeBedState(bedId: number): Observable<any> {
+    const body = { bedId };
+    return this.httpClient.get(`${this.baseUrl}/bed/changestate`, {
+      params:{
+        bedId: bedId
+      }
+
+    });
   }
 
 }
