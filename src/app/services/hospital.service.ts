@@ -25,4 +25,14 @@ export class HospitalService {
     });
   }
 
+  changeBedState(bedId: number): Observable<any> {
+    const body = { bedId };
+    return this.httpClient.get(`${this.baseUrl}/bed/changestate`, {
+      params:{
+        bedId: bedId
+      }
+
+    });
+  }
+
 }

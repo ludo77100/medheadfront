@@ -1,4 +1,4 @@
-  <div class="container mt-4">
+  <div class="container mt-4" *ngIf="bedBooked != true">
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm bg-light">
       <div class="mb-3">
         <label for="userLat" class="form-label">Latitude</label>
@@ -35,12 +35,21 @@
   </div>
 
   <div *ngIf="closestHospitalListSize == 0">
-    <div class="alert alert-danger no-hospital-alert" role="alert">
+    <div class="alert alert-danger hospital-alert" role="alert">
       Aucun hôpital trouvé !
     </div>
   </div>
 
-  <div class="card-list">
+  <div class="card-list" *ngIf="!bedBooked">
+    <div class="spinner-border" role="status" *ngIf="isLoading">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+
+    <div class="alert alert-danger hospital-alert" role="alert" *ngIf="bedBooked == false">
+      {{ errorMessage }}
+    </div>
+    
+
     <div *ngFor="let hospital of closestHospitalList" class="card hospital-card">
       <div class="card-header">
         <h2> {{ hospital.hospital.hospitalName }} </h2>
@@ -49,7 +58,12 @@
         <h5 class="card-title"> {{ hospital.time }} minutes</h5>
         <p class="card-text"> {{ hospital.distance }} km</p>
         <p class="card-text">Code du lit: {{ hospital.bedCode }}</p>
-        <a href="#" class="btn btn-primary">Réserver lit</a>
+        <button href="#" class="btn btn-primary" (click)="bookBed(hospital.bedId)">Réserver lit</button>
       </div>
     </div>
+  </div>
+
+<div class="container mt-4" *ngIf="bedBooked">
+  <div class="alert alert-success hospital-alert" role="alert">
+Le lit à été correctment enregistré !  </div>
   </div>
