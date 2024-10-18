@@ -15,6 +15,13 @@ describe('Test de login', () => {
     // Vérifier que la page s'affiche bien après la connexion et se rendre sur la page "New Emergency"
     cy.get('#new-emergency-btn').click()
   
+    // Charger la fixture depuis un fichier JSON
+    cy.fixture('../fixtures/specialityGroupWithChildrenResponse.json').then((fakeResponse) => {
+      
+    // Intercepter la requête API et retourner les données de la fixture
+    cy.intercept('get', '/specialityGroup/all', fakeResponse).as('createEmergency');
+    })
+
     // Remplir la latitude
     cy.get('input#userLat').type('51.52927577065579')
 
