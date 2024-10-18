@@ -1,5 +1,13 @@
 describe('Test de login', () => {
   it('Se rendre au point d\'entrée de l\'application et entrer les credentials', () => {
+        // Charger la fixture pour simuler la réponse de l'API de login
+    cy.fixture('../fixtures/loginResponse.json').then((loginResponse) => {
+      // Intercepter la requête de login et retourner la réponse de la fixture
+      cy.intercept('POST', '/auth/login', {
+        statusCode: 200,
+        body: loginResponse
+      }).as('loginRequest');})
+    
     // Se rendre sur la page de login
     cy.visit('http://localhost:4200/login')
 
