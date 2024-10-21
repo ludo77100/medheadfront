@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Install Xvfb') {
             steps {
-                sh 'sudo apt-get update && sudo apt-get install -y xvfb'
+                sh 'apt-get update && apt-get install -y xvfb'
             }
         }
         stage('Clean workspace') {
