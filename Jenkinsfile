@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Install Xvfb') {
             steps {
-                sh 'apt-get update && apt-get install -y xvfb'
+                sh 'sudo apt-get update && sudo apt-get install -y xvfb'
             }
         }
         stage('Clean workspace') {
@@ -22,7 +22,12 @@ pipeline {
         }
         stage('Run Cypress Tests') {
             steps {
-                sh 'xvfb-run npx cypress run'
+                script {
+                    docker.image('cypress/included:13.15.0')
+                        .inside('--entrypoint=""') { // Désactive l'ENTRYPOINT
+                        sh 'xvfb-run npx cypress run'
+                    }
+                }
             }
         }
         stage('Build Angular App') {
