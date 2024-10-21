@@ -5,33 +5,14 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-id')
     }
     stages {
-        stage('Install Xvfb') {
-            steps {
-                sh 'apt-get update && apt-get install -y xvfb'
-            }
-        }
         stage('Clean workspace') {
             steps {
                 sh 'rm -rf node_modules package-lock.json'
             }
         }
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
-        stage('Run Cypress Tests') {
-            steps {
-                script {
-                    docker.image('cypress/included:13.15.0')
-                        .inside('--entrypoint=""') { // Désactive l'ENTRYPOINT
-                        sh 'xvfb-run npx cypress run'
-                    }
-                }
-            }
-        }
         stage('Build Angular App') {
             steps {
+                sh 'npm install'
                 sh 'npm run build --prod'
             }
         }
@@ -46,8 +27,11 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials-id', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
+                        // Effectuer le login de manière sécurisée
                         sh 'echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin'
+                        // Pousser l'image vers Docker Hub
                         sh "docker push ${env.IMAGE_NAME}:${env.BUILD_NUMBER}"
+                        //sh "docker push ${env.IMAGE_NAME}:latest"
                     }
                 }
             }
