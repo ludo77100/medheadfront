@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'cypress/included:13.15.0' // Version correspondante à votre Cypress local
+        }
+    }
     environment {
         IMAGE_NAME = 'fr0d0n/medhead-front'
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-id')
@@ -36,9 +40,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials-id', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
-                        // Effectuer le login de manière sécurisée
                         sh 'echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin'
-                        // Pousser l'image vers Docker Hub
                         sh "docker push ${env.IMAGE_NAME}:${env.BUILD_NUMBER}"
                     }
                 }
