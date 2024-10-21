@@ -58,7 +58,7 @@
         <h5 class="card-title"> {{ hospital.time }} minutes</h5>
         <p class="card-text"> {{ hospital.distance }} km</p>
         <p class="card-text">Code du lit: {{ hospital.bedCode }}</p>
-        <button href="#" class="btn btn-primary" (click)="bookBed(hospital.bedId)">Réserver lit</button>
+        <button id ="book-btn" href="#" class="btn btn-primary" (click)="bookBed(hospital.bedId)">Réserver lit</button>
       </div>
     </div>
   </div>
