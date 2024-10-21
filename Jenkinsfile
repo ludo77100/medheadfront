@@ -10,9 +10,18 @@ pipeline {
                 sh 'rm -rf node_modules package-lock.json'
             }
         }
-        stage('Build Angular App') {
+        stage('Install Dependencies') {
             steps {
                 sh 'npm install'
+            }
+        }
+        stage('Run Cypress Tests') {
+            steps {
+                sh 'npx cypress run'
+            }
+        }
+        stage('Build Angular App') {
+            steps {
                 sh 'npm run build --prod'
             }
         }
@@ -31,7 +40,6 @@ pipeline {
                         sh 'echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin'
                         // Pousser l'image vers Docker Hub
                         sh "docker push ${env.IMAGE_NAME}:${env.BUILD_NUMBER}"
-                        //sh "docker push ${env.IMAGE_NAME}:latest"
                     }
                 }
             }
