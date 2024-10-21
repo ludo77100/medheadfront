@@ -1,14 +1,15 @@
 pipeline {
-    agent {
-        docker {
-            image 'cypress/included:13.15.0' // Version correspondante à votre Cypress local
-        }
-    }
+    agent any
     environment {
         IMAGE_NAME = 'fr0d0n/medhead-front'
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-id')
     }
     stages {
+        stage('Install Xvfb') {
+            steps {
+                sh 'apt-get update && apt-get install -y xvfb'
+            }
+        }
         stage('Clean workspace') {
             steps {
                 sh 'rm -rf node_modules package-lock.json'
@@ -21,7 +22,7 @@ pipeline {
         }
         stage('Run Cypress Tests') {
             steps {
-                sh 'npx cypress run'
+                sh 'xvfb-run npx cypress run'
             }
         }
         stage('Build Angular App') {
