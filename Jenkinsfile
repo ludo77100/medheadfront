@@ -10,6 +10,11 @@ pipeline {
                 sh 'rm -rf node_modules package-lock.json'
             }
         }
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm ci' // Réinstaller les dépendances proprement
+            }
+        }
         stage('Run Unit Tests') {
             steps {
                 sh 'npx ng test --watch=false --browsers=ChromeHeadless --no-progress'
