@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Run Unit Tests') {
             steps {
-                sh 'npx ng test --watch=false --browsers=ChromeHeadless'
+                sh 'npx ng test --watch=false --browsers=ChromeHeadless --no-progress'
             }
         }
         stage('Build Angular App') {
