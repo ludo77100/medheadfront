@@ -10,15 +10,15 @@ pipeline {
                 sh 'rm -rf node_modules package-lock.json'
             }
         }
+        stage('Run Unit Tests') {
+            steps {
+                sh 'npx ng test --watch=false --browsers=ChromeHeadless'
+            }
+        }
         stage('Build Angular App') {
             steps {
                 sh 'npm install'
                 sh 'npm run build --prod'
-            }
-        }
-        stage('Test Angular App') {
-            steps {
-                sh 'npm test'
             }
         }
         stage('Build Docker Image') {
