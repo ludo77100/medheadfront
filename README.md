@@ -1,27 +1,44 @@
 # MedheadFront
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.3.
+## Description
+Ce projet fait partie de la suite Medhead et représente le front-office.
+Il fournit les fonctionnalités de services de recherche des hôpitaux les plus proches avec des lits disponibles et la réservation.
 
-## Development server
+## Fonctionnalités
+- Connexion au système
+- Recherche des hôpitaux les plus proches avec des lits disponibles pour une spécialité spécifique.
+- Réservation d'un lit.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Installation et Configuration
 
-## Code scaffolding
+### 1. Clonez le projet
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Clonez le dépôt Git sur votre machine locale
 
-## Build
+### 2. Lancer le service en local
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Pour lancer l’application en local :
 
-## Running unit tests
+```console
+ng serve
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Se rendre à l'adresse suivante http://localhost:4200
 
-## Running end-to-end tests
+## Tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Les tests sont divisés en deux catégories :
 
-## Further help
+    1. Tests d’Intégrations : Pour vérifier les interactions entre les différentes parties de l’application (karma).
+    2. Tests e2e : Pour valider le fonctionnement de l'application (cypress).
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Pour exécuter les tests d'intégrations :
+
+```console
+ng test
+```
+Pour exécuter les tests e2e :
+
+```console
+npx cypress open
+```
