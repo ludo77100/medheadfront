@@ -8,6 +8,13 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private token: TokenService) {}
 
+  /**
+   * Intercepte les requêtes HTTP sortantes pour y ajouter le token JWT et gérer les erreurs
+   *
+   * @param req  La requête HTTP sortante
+   * @param next  Le prochain handler dans la chaîne de requêtes
+   * @returns Observable avec la réponse de la requête HTTP
+   */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let authReq = req;
     const token = this.token.getToken();

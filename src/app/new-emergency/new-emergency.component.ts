@@ -38,6 +38,11 @@ export class NewEmergencyComponent implements OnInit {
     });
   }
 
+  /**
+   * Met à jour la liste des spécialités en fonction du groupe sélectionné
+   * 
+   * @param event  L'événement de changement de la sélection
+   */
   onSpecialityGroupChange(event: Event) {
     const selectedValue = (event.target as HTMLSelectElement).value;
     const selectedGroup = this.specialityGroups.find(group => group.specialityGroupId == selectedValue);
@@ -51,6 +56,13 @@ export class NewEmergencyComponent implements OnInit {
   }
 
 
+  /**
+   * Soumet le formulaire pour rechercher l'hôpital le plus proche
+   * 
+   * Réinitialise l'état de la liste des hôpitaux et active le chargement
+   * Envoie les données (latitude, longitude, spécialité) au service
+   * Met à jour la liste des hôpitaux les plus proches une fois la réponse reçue
+   */
   onSubmit(): void {
 
     this.closestHospitalListSize = null ;
@@ -64,6 +76,14 @@ export class NewEmergencyComponent implements OnInit {
     });
   }
 
+  /**
+   * Réserve un lit à partir de son ID
+   * 
+   * Envoie une requête pour changer l'état du lit
+   * Met à jour l'état de la réservation en fonction de la réponse ou de l'erreur
+   * 
+   * @param bedId  L'identifiant du lit à réserver
+   */
   bookBed(bedId: number): void {
     console.log('Requête en cours de réservation de lit avec ID:', bedId);
     this.hospitalService.changeBedState(bedId)

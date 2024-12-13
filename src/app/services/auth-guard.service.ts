@@ -10,6 +10,14 @@ export class AuthGuardService implements CanActivate {
   
   constructor(private authService: AuthServiceService, private router: Router) {}
 
+  /**
+   * Vérifie si l'utilisateur est authentifié avant d'accéder à une route protégée
+   * 
+   * Si l'utilisateur est authentifié, l'accès est autorisé
+   * Sinon, l'utilisateur est redirigé vers la page de connexion
+   * 
+   * @returns true si l'utilisateur est authentifié, false sinon
+   */
   canActivate(): boolean {
     if (this.authService.isAuthenticated()) {
       return true;

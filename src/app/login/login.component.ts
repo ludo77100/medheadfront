@@ -34,6 +34,10 @@ export class LoginComponent {
     });
   }
 
+  /**
+   * Cette méthode est déclenchée lors de la soumission du formulaire de connexion.
+   * 
+   */
   onSubmit(): void {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;

@@ -16,10 +16,12 @@ export class LogoutComponent implements OnInit {
 
   constructor(private router: Router, private tokenService: TokenService) { }
 
+  /**
+   * Redirection automatique après un logout
+   */
   ngOnInit(): void {
 
     this.tokenService.signOut();
-
     setTimeout(() => {
       this.router.navigate(['/login']);
     }, 4000);
